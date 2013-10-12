@@ -1,0 +1,3 @@
+fixtures:
+  symlinks:
+    ninjablocks: "#{source_dir}"

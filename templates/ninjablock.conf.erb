@@ -1,0 +1,60 @@
+description "Ninja Blocks v0.8"
+author      "http://www.ninjablocks.com"
+
+start on filesystem and net-device-up IFACE!=lo
+stop on shutdown
+
+respawn
+respawn limit 99 1
+
+script
+    if [ -f /etc/environment.local ]; then
+        . /etc/environment.local
+    fi
+    export HOME="/root"
+    exec su <%= @user %> -c "/usr/bin/node <%= @dir %>/client.js"
+    echo $$ > /var/run/ninjablock.pid
+end script
+
+pre-start script
+    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] [System] Starting" >> /var/log/ninjablock.log
+    if [ -f /etc/environment.local ]; then
+        . /etc/environment.local
+    fi
+    code_dir=<%= @dir %>
+    util_dir=/opt/utilities
+    tmp_dir=$util_dir/tmp
+    bin_dir=$util_dir/bin
+
+    # if [ ! -f /etc/opt/ninja/.has_updated_system ]; then
+    #     $bin_dir/ninja_update_system
+    # fi
+    # if [ ! -f /etc/opt/ninja/.has_updated_arduino ]; then
+    #     arduino_update_params_file=/etc/opt/ninja/.arduino_update_params
+    #     arduino_update_params=""
+    #     if [ -f $arduino_update_params_file ]; then
+    #         arduino_update_params=`cat $arduino_update_params_file`
+    #         rm $arduino_update_params_file
+    #     fi
+    #     $bin_dir/ninja_update_arduino $arduino_update_params
+    # fi
+    # if [ ! -f /etc/opt/ninja/.has_updated_utilities ]; then
+    #     $bin_dir/ninja_update_utilities
+    # fi
+    # sudo echo "<%= @user %> ALL=NOPASSWD: /sbin/ifconfig, /sbin/iwlist" > /etc/sudoers.d/ninja
+    # sudo chmod 0440 /etc/sudoers.d/ninja
+    # sudo chown -R <%= @user %>:<%= @user %> <%= @dir %>
+    # sudo chown <%= @user %>:<%= @user %> /opt/utilities/tmp
+    sudo chown <%= @user %>:<%= @user %> /var/log/ninjablock.log
+    # sudo chown <%= @user %>:<%= @user %> /dev/watchdog
+    # sudo chown <%= @user %>:<%= @user %> /etc/opt/ninja
+    # sudo chown <%= @user %>: /sys/class/gpio/gpio38/value
+    # tail -n 1000 /var/log/ninjablock.log > /opt/utilities/tmp/new.log
+    # cat /opt/utilities/tmp/new.log>/var/log/ninjablock.log
+    # rm /opt/utilities/tmp/new.log
+end script
+
+pre-stop script
+    rm /var/run/ninjablock.pid
+    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] [System] Stopping" >> /var/log/ninjablock.log
+end script
