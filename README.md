@@ -29,7 +29,7 @@ See [tests/site.pp](blob/master/tests/site.pp) for examples of several drivers.
 
 Install from the Puppet Forge with
 
-    puppet module install carlossg/ninjablocks
+    puppet module install csanchez/ninjablocks
 
 # Vagrant
 
