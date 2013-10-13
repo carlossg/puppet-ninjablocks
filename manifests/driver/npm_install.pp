@@ -9,6 +9,7 @@ define ninjablocks::driver::npm_install(
     command => "npm install && touch installed.puppet",
     cwd     => "${dir}/drivers/${name}",
     creates => "${dir}/drivers/${name}/installed.puppet",
+    environment => "HOME=#{ENV['HOME']}",
     notify  => Service['ninjablock'],
   }
 

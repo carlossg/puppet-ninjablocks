@@ -10,4 +10,4 @@ description 'A Puppet module to install and configure Ninja Blocks client'
 
 dependency 'puppetlabs/apt'
 dependency 'puppetlabs/stdlib', '>=3.2.0'
-dependency 'puppetlabs/nodejs'
+dependency 'puppetlabs/nodejs', '>=0.4.0'

@@ -31,10 +31,23 @@ Install from the Puppet Forge with
 
     puppet module install csanchez/ninjablocks
 
+# Building
+
+Just get the gems with bundler and run rake to get the dependent modules and run the specs
+
+    bundle
+    rake
+
+
 # Vagrant
 
 The module includes a [Vagrant](http://vagrantup.com) definition to create a new virtual machine from scratch and install the ninjablocks client.
 `vagrant up` will create an ubuntu box and install the ninjablocks client and several drivers, as defined in [tests/site.pp](blob/master/tests/site.pp).
+
+You may need to run bundler and rake before in order to get the module dependencies
+
+    bundle
+    rake
 
 # Author
 

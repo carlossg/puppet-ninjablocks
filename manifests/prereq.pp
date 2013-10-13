@@ -2,7 +2,7 @@ class ninjablocks::prereq($version = $ninjablocks::node_version) {
 
   case $::operatingsystem {
 
-   'debian', 'ubuntu': {
+   'ubuntu': {
       $node_version = '0.8.25-2chl1~precise1'
 
       apt::ppa { 'ppa:chris-lea/node.js-legacy':
@@ -22,7 +22,6 @@ class ninjablocks::prereq($version = $ninjablocks::node_version) {
 
   class { 'nodejs':
     version     => $version ? { undef => $node_version, default => $version },
-    manage_repo => true,
     dev_package => true,
   } ->
 
