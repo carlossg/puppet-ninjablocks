@@ -2,6 +2,15 @@ class ninjablocks::install {
 
   Exec{ path => ['/bin','/usr/bin'], user => $ninjablocks::user }
 
+  # apt::source { 'ninjablocks':
+  #   location          => 'http://releases.ninjablocks.com/',
+  #   release           => 'wheezy',
+  #   repos             => 'beta',
+  #   key               => '0E86E52B682BF664',
+  #   key_server        => 'keyserver.ubuntu.com',
+  #   include_src       => false,
+  # }
+
   file { $ninjablocks::dir:
     ensure => directory,
     owner  => $ninjablocks::user,
