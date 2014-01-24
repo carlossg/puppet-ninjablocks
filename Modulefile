@@ -1,5 +1,5 @@
 name 'csanchez-ninjablocks'
-version '1.0.2'
+version '1.0.3'
 
 author 'csanchez'
 license 'Apache License, Version 2.0'
