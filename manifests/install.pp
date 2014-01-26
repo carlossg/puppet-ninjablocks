@@ -27,7 +27,8 @@ class ninjablocks::install {
     require => Anchor['ninjablocks::package'],
   } ->
   exec { 'git checkout develop':
-    cwd => $ninjablocks::dir,
+    cwd    => $ninjablocks::dir,
+    unless => 'test `git rev-parse --abbrev-ref HEAD` = develop',
   } ->
   exec { 'npm install':
     cwd     => $ninjablocks::dir,
